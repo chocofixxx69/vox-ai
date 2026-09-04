@@ -4,6 +4,17 @@
 # ═══════════════════════════════════════════════════════════
 
 import os
+import sys
+import io
+
+# Ensure UTF-8 output on Windows
+if sys.platform == "win32":
+    try:
+        sys.stdout.reconfigure(encoding='utf-8', errors='replace')
+        sys.stderr.reconfigure(encoding='utf-8', errors='replace')
+    except Exception:
+        pass
+
 from dotenv import load_dotenv
 
 # ⭐⭐⭐ LOAD ENVIRONMENT VARIABLES
@@ -50,7 +61,7 @@ WHISPER_MODEL = os.getenv('WHISPER_MODEL', 'small')
 # ═══════════════════════════════════════════════════════════
 
 GEMINI_API_KEY = os.getenv('GEMINI_API_KEY')
-GEMINI_MODEL = 'gemini-2.0-flash-lite'
+GEMINI_MODEL = os.getenv('GEMINI_MODEL', 'gemini-2.5-flash')
 
 # ═══════════════════════════════════════════════════════════
 # N8N WEBHOOK URL (Hostinger)

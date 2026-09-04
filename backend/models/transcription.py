@@ -28,14 +28,8 @@ except:
 DEVICE = "cpu"
 COMPUTE_TYPE = "int8"
 
-print(f"🔄 Loading Whisper model: {MODEL_SIZE}...")
-try:
-    model = WhisperModel(MODEL_SIZE, device=DEVICE, compute_type=COMPUTE_TYPE)
-    print(f"✅ Whisper model '{MODEL_SIZE}' loaded successfully!")
-except Exception as e:
-    print(f"⚠️ Warning loading Whisper model: {e}")
-    print("Model will be downloaded on first use.")
-    model = None
+print(f"🔄 Whisper model configured: {MODEL_SIZE} (loads on demand)")
+model = None
 
 def convert_audio_to_wav(audio_path):
     """
