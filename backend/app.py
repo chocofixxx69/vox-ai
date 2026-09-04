@@ -1134,9 +1134,25 @@ def login():
                 'clinic_id': 'c0000000-0000-0000-0000-000000000001',
                 'photo_url': ''
             },
+            'doctor@hospital.com': {
+                'id': 'd0000000-0000-0000-0000-000000000001',
+                'email': 'doctor@hospital.com',
+                'full_name': 'Dr. Sarah Jenkins (MD)',
+                'role': 'doctor',
+                'clinic_id': 'c0000000-0000-0000-0000-000000000001',
+                'photo_url': ''
+            },
             'admin@voxai.com': {
                 'id': 'a0000000-0000-0000-0000-000000000001',
                 'email': 'admin@voxai.com',
+                'full_name': 'Clinic Administrator',
+                'role': 'admin',
+                'clinic_id': 'c0000000-0000-0000-0000-000000000001',
+                'photo_url': ''
+            },
+            'admin@hospital.com': {
+                'id': 'a0000000-0000-0000-0000-000000000001',
+                'email': 'admin@hospital.com',
                 'full_name': 'Clinic Administrator',
                 'role': 'admin',
                 'clinic_id': 'c0000000-0000-0000-0000-000000000001',
