@@ -39,9 +39,20 @@ def generate_pdf(report_data, patient_info, clinic_info=None):
     clinic_phone = clinic_info.get('phone', '') if clinic_info else ''
     clinic_website = clinic_info.get('website', '') if clinic_info else ''
     
+    # Normalize patient info
+    if isinstance(patient_info, dict):
+        if 'patient_information' in patient_info and isinstance(patient_info['patient_information'], dict):
+            p_data = patient_info['patient_information']
+        elif 'patient_info' in patient_info and isinstance(patient_info['patient_info'], dict):
+            p_data = patient_info['patient_info']
+        else:
+            p_data = patient_info
+    else:
+        p_data = {}
+
     # Generate filename
     timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
-    patient_name = patient_info.get('name', 'patient').replace(' ', '_')
+    patient_name = p_data.get('name', 'patient').replace(' ', '_')
     filename = f"medical_report_{patient_name}_{timestamp}.pdf"
     filepath = os.path.join(PDF_FOLDER, filename)
     
@@ -119,11 +130,12 @@ def generate_pdf(report_data, patient_info, clinic_info=None):
     elements.append(Paragraph("<b>MEDICAL CONSULTATION REPORT</b>", ParagraphStyle('Centered', parent=normal_style, alignment=TA_CENTER, fontSize=12, spaceBefore=10, spaceAfter=20)))
     
     # Report Meta Section (Table)
+    report_id_str = report_data.get('report_id', 'N/A') if isinstance(report_data, dict) else 'N/A'
     meta_data = [
         [Paragraph("<b>Patient Details</b>", bold_style), Paragraph("<b>Consultation Info</b>", bold_style)],
         [
-            Paragraph(f"Name: {patient_info.get('name', 'N/A')}<br/>Age: {patient_info.get('age', 'N/A')}<br/>Phone: {patient_info.get('phone', 'N/A')}", normal_style),
-            Paragraph(f"Date: {datetime.now().strftime('%d %b %Y')}<br/>ID: #VX-{report_data.get('report_id', 'N/A')[:8]}", normal_style)
+            Paragraph(f"Name: {p_data.get('name', 'N/A')}<br/>Age: {p_data.get('age', 'N/A')}<br/>Phone: {p_data.get('phone', p_data.get('phone_number', 'N/A'))}", normal_style),
+            Paragraph(f"Date: {datetime.now().strftime('%d %b %Y')}<br/>ID: #VX-{report_id_str[:8]}", normal_style)
         ]
     ]
     meta_table = Table(meta_data, colWidths=[2.75*inch, 2.75*inch])
@@ -137,7 +149,15 @@ def generate_pdf(report_data, patient_info, clinic_info=None):
     elements.append(Spacer(1, 0.2*inch))
     
     # Medical Information Section
-    medical_info = report_data.get('medical_information', {})
+    if isinstance(report_data, dict):
+        if 'medical_information' in report_data and isinstance(report_data['medical_information'], dict):
+            medical_info = report_data['medical_information']
+        elif 'medical_data' in report_data and isinstance(report_data['medical_data'], dict):
+            medical_info = report_data['medical_data']
+        else:
+            medical_info = report_data
+    else:
+        medical_info = {}
     
     # 1. Clinical Observations
     elements.append(Paragraph("CLINICAL OBSERVATIONS", heading_style))

@@ -447,8 +447,8 @@ def approve_and_send():
         report_data = data.get('report_data', {})
         
         # 1. Fetch record from payload or Supabase
-        medical_data = report_data.get('medical_information', report_data.get('medical_data', {}))
-        patient = report_data.get('patient_info', {'name': 'Patient', 'age': '35', 'gender': 'Unspecified'})
+        medical_data = report_data.get('medical_information', report_data.get('medical_data', report_data))
+        patient = report_data.get('patient_information', report_data.get('patient_info', {}))
         clinic_info = {'name': 'VoxAI Medical Center', 'phone': '+1 (555) 019-2834', 'website': 'voxai.health'}
         clinic_id = '00000000-0000-0000-0000-000000000000'
         
@@ -457,7 +457,7 @@ def approve_and_send():
             if record.data:
                 consultation = record.data
                 clinic_id = consultation.get('clinic_id', clinic_id)
-                if consultation.get('patients'):
+                if consultation.get('patients') and not patient:
                     patient = consultation['patients']
                 if consultation.get('medical_data') and not medical_data:
                     medical_data = consultation['medical_data']
@@ -470,7 +470,7 @@ def approve_and_send():
 
         # 2. Generate PDF
         print("📄 Generating final PDF report...")
-        pdf_path = generate_pdf(medical_data, patient, clinic_info)
+        pdf_path = generate_pdf(report_data, patient, clinic_info)
         pdf_filename = os.path.basename(pdf_path)
         pdf_url = f"http://localhost:5001/api/pdfs/{pdf_filename}"
         
