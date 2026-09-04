@@ -229,6 +229,31 @@ const UploadWizard = ({ onComplete }) => {
                             </div>
                         ) : (
                             <div>
+                                <div className="flex items-center justify-between mb-2">
+                                    <span className="text-xs font-semibold text-slate-500">Insert Sample Clinical Transcript:</span>
+                                    <div className="flex gap-2">
+                                        <button
+                                            type="button"
+                                            onClick={() => {
+                                                setTranscriptText("Doctor: Hello David, what brings you in today?\nPatient: Good morning Doctor. I have had a bad dry cough, mild fever, and a sore throat for the last 3 days. Also feeling quite fatigued.\nDoctor: Let me check your temperature and chest. Temperature is 100.8 F, blood pressure is 124/82. Chest auscultation reveals mild bilateral wheezing, consistent with acute bronchitis and upper respiratory viral infection.\nDoctor: I am going to prescribe Azithromycin 500mg once daily for 5 days. For the fever and throat pain, take Paracetamol 650mg twice daily after meals for 3 days as needed. Also take Levocetirizine 5mg at bedtime for 5 days for the cough and congestion.\nDoctor: Please avoid cold drinks, smoking, and strenuous activity. Drink warm water with honey, do steam inhalation twice daily, and rest adequately.\nPatient: Thank you Doctor. When should I follow up?\nDoctor: Follow up in 5 days if the cough persists or if fever exceeds 102 F.");
+                                                setPatientInfo({ name: 'David Miller', age: '38', gender: 'Male', phone: '+1 555-019-2834', email: 'david.miller@example.com' });
+                                            }}
+                                            className="text-xs px-2.5 py-1 bg-sky-50 dark:bg-sky-950/50 hover:bg-sky-100 text-sky-600 dark:text-sky-400 rounded-md border border-sky-200 dark:border-sky-800 font-medium transition-colors"
+                                        >
+                                            📋 Sample 1: Bronchitis & Fever
+                                        </button>
+                                        <button
+                                            type="button"
+                                            onClick={() => {
+                                                setTranscriptText("Doctor: Good afternoon Mrs. Johnson. How have your blood pressure and blood sugar readings been since our last visit?\nPatient: Hello Doctor. My morning fasting sugars were around 145 mg/dL, and my blood pressure measured 148/92 at home yesterday. I have also been getting occasional mild dizziness and headaches.\nDoctor: Your clinic blood pressure today is 150/94 mmHg and resting pulse is 76 bpm. Your glycemic control and hypertension need optimization.\nDoctor: We will adjust your medications. I am prescribing Telmisartan 40mg once daily in the morning before breakfast. Continue Metformin 500mg twice daily with meals. Add Atorvastatin 10mg once daily at bedtime for lipid management.\nDoctor: Strictly avoid high-sodium foods, processed sugars, and fried items. Do at least 30 minutes of brisk walking 5 days a week. Keep a daily log of blood pressure and fasting blood sugar.\nDoctor: Come back for a follow-up in 4 weeks with fresh HbA1c and lipid profile lab results.");
+                                                setPatientInfo({ name: 'Elena Johnson', age: '54', gender: 'Female', phone: '+1 555-084-7123', email: 'elena.j@example.com' });
+                                            }}
+                                            className="text-xs px-2.5 py-1 bg-indigo-50 dark:bg-indigo-950/50 hover:bg-indigo-100 text-indigo-600 dark:text-indigo-400 rounded-md border border-indigo-200 dark:border-indigo-800 font-medium transition-colors"
+                                        >
+                                            📋 Sample 2: Hypertension & Diabetes
+                                        </button>
+                                    </div>
+                                </div>
                                 <textarea
                                     className="w-full h-48 p-6 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl outline-none focus:border-primary-500 transition-colors resize-none text-sm leading-relaxed"
                                     placeholder="Paste the consultation transcript here...&#10;&#10;Example: Patient presents with severe chest pain. Blood pressure is 140/90. Prescribing Amlodipine 5mg once daily..."
